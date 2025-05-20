@@ -81,6 +81,7 @@ def handle_disconnect():
 @socketio.on('get_folders')
 def handle_get_folders():
     user_data = load_user_data()
+    # Send folders to both users
     emit('folders_updated', {
         'user': 'luu',
         'folders': user_data['luu']['folders']
@@ -109,9 +110,14 @@ def handle_create_folder(data):
     user_data[user_key]['folders'].append(folder_name)
     save_user_data(user_data)
     
+    # Emit to both users to keep their folder lists in sync
     emit('folders_updated', {
-        'user': user,
-        'folders': user_data[user_key]['folders']
+        'user': 'luu',
+        'folders': user_data['luu']['folders']
+    })
+    emit('folders_updated', {
+        'user': 'ken',
+        'folders': user_data['4keni']['folders']
     })
 
 @socketio.on('start_session')

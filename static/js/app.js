@@ -11,7 +11,8 @@ const socket = io({
 socket.on('connect', () => {
     console.log('Connected to server');
     document.body.classList.remove('disconnected');
-    loadFolders();
+    // Request folders for both users
+    socket.emit('get_folders');
 });
 
 socket.on('disconnect', () => {
@@ -106,7 +107,12 @@ function createNewFolder(user) {
 // Update folder select options
 function updateFolderSelect(user, folders) {
     const select = elements[user].barkSelect;
-    select.innerHTML = '<option value="">Select Folder</option>';
+    // Clear existing options except the first one
+    while (select.options.length > 1) {
+        select.remove(1);
+    }
+    
+    // Add new options
     folders.forEach(folder => {
         const option = document.createElement('option');
         option.value = folder;
@@ -304,6 +310,7 @@ socket.on('session_completed', (data) => {
 
 socket.on('folders_updated', (data) => {
     const { user, folders } = data;
+    console.log('Folders updated for', user, ':', folders); // Debug log
     updateFolderSelect(user, folders);
 });
 
