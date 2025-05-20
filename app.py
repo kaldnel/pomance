@@ -40,13 +40,15 @@ def load_user_data():
                 "cash": 100,
                 "inventory": [],
                 "sessions_today": 0,
-                "last_session": None
+                "last_session": None,
+                "folders": []
             },
             "4keni": {
                 "cash": 100,
                 "inventory": [],
                 "sessions_today": 0,
-                "last_session": None
+                "last_session": None,
+                "folders": []
             }
         }
 
@@ -76,20 +78,66 @@ def handle_connect():
 def handle_disconnect():
     print('Client disconnected')
 
+@socketio.on('get_folders')
+def handle_get_folders():
+    user_data = load_user_data()
+    emit('folders_updated', {
+        'user': 'luu',
+        'folders': user_data['luu']['folders']
+    })
+    emit('folders_updated', {
+        'user': 'ken',
+        'folders': user_data['4keni']['folders']
+    })
+
+@socketio.on('create_folder')
+def handle_create_folder(data):
+    user = data.get('user')
+    folder_name = data.get('name')
+    
+    if not folder_name:
+        emit('error', {'message': 'Folder name cannot be empty'})
+        return
+    
+    user_data = load_user_data()
+    user_key = '4keni' if user == 'ken' else user
+    
+    if folder_name in user_data[user_key]['folders']:
+        emit('error', {'message': 'Folder already exists'})
+        return
+    
+    user_data[user_key]['folders'].append(folder_name)
+    save_user_data(user_data)
+    
+    emit('folders_updated', {
+        'user': user,
+        'folders': user_data[user_key]['folders']
+    })
+
 @socketio.on('start_session')
 def handle_start_session(data):
     user = data.get('user')
     animal = data.get('animal')
     task = data.get('task', '').strip()
+    bark = data.get('bark', '').strip()
     
     if not task:
         emit('error', {'message': 'Please enter a task name'})
         return
     
-    user_data = load_user_data()
+    if not bark:
+        emit('error', {'message': 'Please select a folder'})
+        return
     
-    if user_data[user]['sessions_today'] >= 5:
+    user_data = load_user_data()
+    user_key = '4keni' if user == 'ken' else user
+    
+    if user_data[user_key]['sessions_today'] >= 5:
         emit('error', {'message': 'Daily session limit reached'})
+        return
+    
+    if bark not in user_data[user_key]['folders']:
+        emit('error', {'message': 'Invalid folder selected'})
         return
     
     animals = load_animals()
@@ -97,9 +145,10 @@ def handle_start_session(data):
         emit('error', {'message': 'Invalid animal selected'})
         return
     
-    user_data[user]['last_session'] = {
+    user_data[user_key]['last_session'] = {
         'animal': animal,
         'task': task,
+        'bark': bark,
         'start_time': datetime.now().isoformat(),
         'duration': animals[animal]['duration']
     }
@@ -109,6 +158,7 @@ def handle_start_session(data):
         'user': user,
         'animal': animal,
         'task': task,
+        'bark': bark,
         'duration': animals[animal]['duration']
     }, broadcast=True)
 
@@ -116,25 +166,28 @@ def handle_start_session(data):
 def handle_complete_session(data):
     user = data.get('user')
     user_data = load_user_data()
+    user_key = '4keni' if user == 'ken' else user
     animals = load_animals()
     
-    if not user_data[user]['last_session']:
+    if not user_data[user_key]['last_session']:
         emit('error', {'message': 'No active session found'})
         return
     
-    session = user_data[user]['last_session']
+    session = user_data[user_key]['last_session']
     animal = session['animal']
     task = session['task']
+    bark = session['bark']
     reward = animals[animal]['reward']
     
-    user_data[user]['cash'] += reward
-    user_data[user]['inventory'].append({
+    user_data[user_key]['cash'] += reward
+    user_data[user_key]['inventory'].append({
         'animal': animal,
         'task': task,
+        'bark': bark,
         'completed_at': datetime.now().isoformat()
     })
-    user_data[user]['sessions_today'] += 1
-    user_data[user]['last_session'] = None
+    user_data[user_key]['sessions_today'] += 1
+    user_data[user_key]['last_session'] = None
     
     save_user_data(user_data)
     
@@ -142,6 +195,7 @@ def handle_complete_session(data):
         'user': user,
         'animal': animal,
         'task': task,
+        'bark': bark,
         'reward': reward
     }, broadcast=True)
 

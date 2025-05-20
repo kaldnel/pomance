@@ -22,11 +22,13 @@
                     <h3>Current Task</h3>
                     <div id="luu-current-animal">None</div>
                     <div id="luu-current-task" class="task-label">No task</div>
+                    <div id="luu-current-bark" class="bark-label">No folder</div>
                 </div>
                 <div class="partner-animal">
                     <h3>4keni's Task</h3>
                     <div id="luu-partner-animal">None</div>
                     <div id="luu-partner-task" class="task-label">No task</div>
+                    <div id="luu-partner-bark" class="bark-label">No folder</div>
                 </div>
             </div>
             <div class="timer">
@@ -34,6 +36,12 @@
                 <div class="controls">
                     <div class="input-group">
                         <input type="text" id="luu-task-input" placeholder="Enter task name..." class="task-input">
+                        <select id="luu-bark-select">
+                            <option value="">Select Folder</option>
+                        </select>
+                        <button id="luu-new-bark" class="new-bark-btn">New Folder</button>
+                    </div>
+                    <div class="input-group">
                         <select id="luu-animal-select">
                             <option value="chicken">Chicken (15min)</option>
                             <option value="goat">Goat (25min)</option>
@@ -67,11 +75,13 @@
                     <h3>Current Task</h3>
                     <div id="ken-current-animal">None</div>
                     <div id="ken-current-task" class="task-label">No task</div>
+                    <div id="ken-current-bark" class="bark-label">No folder</div>
                 </div>
                 <div class="partner-animal">
                     <h3>Luu's Task</h3>
                     <div id="ken-partner-animal">None</div>
                     <div id="ken-partner-task" class="task-label">No task</div>
+                    <div id="ken-partner-bark" class="bark-label">No folder</div>
                 </div>
             </div>
             <div class="timer">
@@ -79,6 +89,12 @@
                 <div class="controls">
                     <div class="input-group">
                         <input type="text" id="ken-task-input" placeholder="Enter task name..." class="task-input">
+                        <select id="ken-bark-select">
+                            <option value="">Select Folder</option>
+                        </select>
+                        <button id="ken-new-bark" class="new-bark-btn">New Folder</button>
+                    </div>
+                    <div class="input-group">
                         <select id="ken-animal-select">
                             <option value="chicken">Chicken (15min)</option>
                             <option value="goat">Goat (25min)</option>

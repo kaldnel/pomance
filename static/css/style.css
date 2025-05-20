@@ -147,4 +147,41 @@ button:hover {
 .inventory-item .animal-type {
     font-size: 0.9rem;
     opacity: 0.8;
+}
+
+.bark-label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #666;
+}
+
+.new-bark-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.new-bark-btn:hover {
+    background-color: #45a049;
+}
+
+#luu-bark-select, #ken-bark-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    min-width: 150px;
+    background-color: white;
+}
+
+.inventory-item .bark-name {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.2rem;
 } 
