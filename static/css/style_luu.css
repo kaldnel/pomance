@@ -1,52 +1,70 @@
 .luu-panel {
-    background-color: #1a1a1a;
+    background-color: #000000;
     color: #ffffff;
 }
 
 .luu-panel .header {
-    background-color: #2a2a2a;
+    background-color: #111111;
     border: 2px solid #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
 }
 
 .luu-panel .animal-display {
-    background-color: #2a2a2a;
+    background-color: #111111;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
 }
 
 .luu-panel .current-animal,
 .luu-panel .partner-animal {
-    background-color: #333333;
+    background-color: #1a1a1a;
     border: 1px solid #00ff00;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.15);
 }
 
 .luu-panel .timer {
-    background-color: #2a2a2a;
+    background-color: #111111;
     border: 2px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 
 .luu-panel select {
-    background-color: #333333;
+    background-color: #1a1a1a;
     color: #ffffff;
     border: 1px solid #00ff00;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
 }
 
 .luu-panel button {
     background-color: #00ff00;
     color: #000000;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    font-weight: bold;
 }
 
 .luu-panel button:hover {
     background-color: #00cc00;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
 }
 
 .luu-panel .inventory {
-    background-color: #2a2a2a;
+    background-color: #111111;
     border: 2px solid #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
 }
 
 #luu-inventory > div {
-    background-color: #333333;
+    background-color: #1a1a1a;
     border: 1px solid #00ff00;
     padding: 0.5rem;
     text-align: center;
     border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+#luu-inventory > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.3);
 } 

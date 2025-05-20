@@ -45,8 +45,11 @@ const elements = {
         pause: document.getElementById('luu-pause'),
         reset: document.getElementById('luu-reset'),
         animalSelect: document.getElementById('luu-animal-select'),
+        taskInput: document.getElementById('luu-task-input'),
         currentAnimal: document.getElementById('luu-current-animal'),
+        currentTask: document.getElementById('luu-current-task'),
         partnerAnimal: document.getElementById('luu-partner-animal'),
+        partnerTask: document.getElementById('luu-partner-task'),
         inventory: document.getElementById('luu-inventory'),
         cash: document.getElementById('luu-cash')
     },
@@ -56,8 +59,11 @@ const elements = {
         pause: document.getElementById('ken-pause'),
         reset: document.getElementById('ken-reset'),
         animalSelect: document.getElementById('ken-animal-select'),
+        taskInput: document.getElementById('ken-task-input'),
         currentAnimal: document.getElementById('ken-current-animal'),
+        currentTask: document.getElementById('ken-current-task'),
         partnerAnimal: document.getElementById('ken-partner-animal'),
+        partnerTask: document.getElementById('ken-partner-task'),
         inventory: document.getElementById('ken-inventory'),
         cash: document.getElementById('ken-cash')
     }
@@ -80,7 +86,14 @@ function startTimer(user) {
     if (timers[user].isRunning) return;
     
     const animal = elements[user].animalSelect.value;
-    socket.emit('start_session', { user, animal });
+    const task = elements[user].taskInput.value.trim();
+    
+    if (!task) {
+        alert('Please enter a task name');
+        return;
+    }
+    
+    socket.emit('start_session', { user, animal, task });
 }
 
 // Pause timer
@@ -97,6 +110,8 @@ function resetTimer(user) {
     timers[user].timeLeft = 0;
     updateTimer(user);
     elements[user].currentAnimal.textContent = 'None';
+    elements[user].currentTask.textContent = 'No task';
+    elements[user].taskInput.value = '';
 }
 
 // Event Listeners
@@ -110,13 +125,15 @@ elements.ken.reset.addEventListener('click', () => resetTimer('ken'));
 
 // Socket.IO Events
 socket.on('session_started', (data) => {
-    const { user, animal, duration } = data;
+    const { user, animal, task, duration } = data;
     const otherUser = user === 'luu' ? 'ken' : 'luu';
     
     timers[user].timeLeft = duration * 60;
     timers[user].isRunning = true;
     elements[user].currentAnimal.textContent = animal;
+    elements[user].currentTask.textContent = task;
     elements[otherUser].partnerAnimal.textContent = animal;
+    elements[otherUser].partnerTask.textContent = task;
     
     updateTimer(user);
     
@@ -133,7 +150,7 @@ socket.on('session_started', (data) => {
 });
 
 socket.on('session_completed', (data) => {
-    const { user, animal, reward } = data;
+    const { user, animal, task, reward } = data;
     const otherUser = user === 'luu' ? 'ken' : 'luu';
     
     // Update cash
@@ -142,12 +159,19 @@ socket.on('session_completed', (data) => {
     
     // Add to inventory
     const inventoryItem = document.createElement('div');
-    inventoryItem.textContent = animal;
+    inventoryItem.className = 'inventory-item';
+    inventoryItem.innerHTML = `
+        <div class="task-name">${task}</div>
+        <div class="animal-type">${animal}</div>
+    `;
     elements[user].inventory.appendChild(inventoryItem);
     
     // Reset display
     elements[user].currentAnimal.textContent = 'None';
+    elements[user].currentTask.textContent = 'No task';
     elements[otherUser].partnerAnimal.textContent = 'None';
+    elements[otherUser].partnerTask.textContent = 'No task';
+    elements[user].taskInput.value = '';
 });
 
 socket.on('error', (data) => {

@@ -80,6 +80,12 @@ def handle_disconnect():
 def handle_start_session(data):
     user = data.get('user')
     animal = data.get('animal')
+    task = data.get('task', '').strip()
+    
+    if not task:
+        emit('error', {'message': 'Please enter a task name'})
+        return
+    
     user_data = load_user_data()
     
     if user_data[user]['sessions_today'] >= 5:
@@ -93,6 +99,7 @@ def handle_start_session(data):
     
     user_data[user]['last_session'] = {
         'animal': animal,
+        'task': task,
         'start_time': datetime.now().isoformat(),
         'duration': animals[animal]['duration']
     }
@@ -101,6 +108,7 @@ def handle_start_session(data):
     emit('session_started', {
         'user': user,
         'animal': animal,
+        'task': task,
         'duration': animals[animal]['duration']
     }, broadcast=True)
 
@@ -114,11 +122,17 @@ def handle_complete_session(data):
         emit('error', {'message': 'No active session found'})
         return
     
-    animal = user_data[user]['last_session']['animal']
+    session = user_data[user]['last_session']
+    animal = session['animal']
+    task = session['task']
     reward = animals[animal]['reward']
     
     user_data[user]['cash'] += reward
-    user_data[user]['inventory'].append(animal)
+    user_data[user]['inventory'].append({
+        'animal': animal,
+        'task': task,
+        'completed_at': datetime.now().isoformat()
+    })
     user_data[user]['sessions_today'] += 1
     user_data[user]['last_session'] = None
     
@@ -127,6 +141,7 @@ def handle_complete_session(data):
     emit('session_completed', {
         'user': user,
         'animal': animal,
+        'task': task,
         'reward': reward
     }, broadcast=True)
 

@@ -58,6 +58,12 @@ body.disconnected::before {
     text-align: center;
 }
 
+.task-label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
 .timer {
     text-align: center;
     padding: 2rem;
@@ -67,9 +73,29 @@ body.disconnected::before {
 
 .controls {
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.input-group {
+    display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-top: 1rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.task-input {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    min-width: 200px;
 }
 
 select, button {
@@ -100,7 +126,25 @@ button:hover {
 
 #luu-inventory, #ken-inventory {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
     padding: 1rem;
+}
+
+.inventory-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.inventory-item .task-name {
+    font-weight: bold;
+}
+
+.inventory-item .animal-type {
+    font-size: 0.9rem;
+    opacity: 0.8;
 } 

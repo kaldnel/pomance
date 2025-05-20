@@ -7,11 +7,13 @@
     background-color: #ffe4e1;
     border: 2px solid #ff69b4;
     border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
 }
 
 .ken-panel .animal-display {
     background-color: #ffe4e1;
     border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.15);
 }
 
 .ken-panel .current-animal,
@@ -19,12 +21,15 @@
     background-color: #fff5f5;
     border: 1px solid #ff69b4;
     border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.1);
 }
 
 .ken-panel .timer {
     background-color: #ffe4e1;
     border: 2px solid #ff69b4;
     border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.2);
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
 }
 
 .ken-panel select {
@@ -32,22 +37,28 @@
     color: #4a4a4a;
     border: 1px solid #ff69b4;
     border-radius: 10px;
+    box-shadow: 0 0 8px rgba(255, 105, 180, 0.15);
 }
 
 .ken-panel button {
     background-color: #ff69b4;
     color: #ffffff;
     border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.3);
+    font-weight: bold;
 }
 
 .ken-panel button:hover {
     background-color: #ff1493;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(255, 105, 180, 0.4);
 }
 
 .ken-panel .inventory {
     background-color: #ffe4e1;
     border: 2px solid #ff69b4;
     border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.15);
 }
 
 #ken-inventory > div {
@@ -56,4 +67,11 @@
     padding: 0.5rem;
     text-align: center;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.1);
+    transition: all 0.3s ease;
+}
+
+#ken-inventory > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
 } 

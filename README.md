@@ -1,32 +1,35 @@
 # Pomance - Focus Tracker
 
-A split-screen productivity app for two users to track focus sessions with a fun livestock theme.
+A collaborative productivity and focus tracking application built with Flask and Socket.IO. Pomance helps users stay focused and motivated through gamification elements and a livestock theme.
 
 ## Features
 
-- Split-screen interface for two users (luu and 4keni)
-- Unique themes for each user
-- Animal-based focus sessions with different durations
-- Real-time updates between users
-- Cash rewards and inventory system
-- Daily session limits
-- Partner view of current sessions
+- Split-screen layout for two users
+- Real-time synchronization using Socket.IO
+- Task labeling and tracking
+- Gamification with virtual currency and rewards
+- Different duration options (animals) for focus sessions
+- Session history and inventory tracking
+- Responsive design
+
+## Tech Stack
+
+- Backend: Flask, Socket.IO
+- Frontend: HTML, CSS, JavaScript
+- Deployment: Render.com
 
 ## Setup
 
-1. Create a virtual environment:
+1. Clone the repository:
 ```bash
-python -m venv .venv
+git clone https://github.com/yourusername/pomance.git
+cd pomance
 ```
 
-2. Activate the virtual environment:
-- Windows:
+2. Create and activate a virtual environment:
 ```bash
-.venv\Scripts\activate
-```
-- Unix/MacOS:
-```bash
-source .venv/bin/activate
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -41,31 +44,23 @@ python app.py
 
 The application will be available at `http://localhost:5000`
 
-## Animal Durations and Rewards
+## Project Structure
 
-- Chicken: 15 minutes (10 cash)
-- Goat: 25 minutes (20 cash)
-- Sheep: 35 minutes (30 cash)
-- Pig: 45 minutes (40 cash)
-- Cow: 60 minutes (50 cash)
-- Horse: 90 minutes (75 cash)
+```
+pomance/
+├── app.py              # Main Flask application
+├── requirements.txt    # Python dependencies
+├── static/            # Static files
+│   ├── css/          # Stylesheets
+│   └── js/           # JavaScript files
+├── templates/         # HTML templates
+└── data/             # Data storage
+```
 
-## Development
+## Deployment
 
-The project uses:
-- Flask for the backend
-- Flask-SocketIO for real-time updates
-- HTML/CSS/JS for the frontend
-- JSON for data storage
+The application is configured for deployment on Render.com. The deployment settings are defined in `render.yaml`.
 
-## Data Storage
+## License
 
-User data is stored in `data/data.json` and includes:
-- Cash balance
-- Inventory
-- Session history
-- Daily session count
-
-## Contributing
-
-Feel free to submit issues and enhancement requests! 
+MIT License 
