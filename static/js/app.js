@@ -92,7 +92,36 @@ function startTimer(user) {
         alert('Please enter a task name');
         return;
     }
+
+    // Get duration from the selected animal
+    const duration = {
+        'chicken': 15,
+        'goat': 25,
+        'sheep': 35,
+        'pig': 45,
+        'cow': 60,
+        'horse': 90
+    }[animal];
+
+    // Start timer immediately
+    timers[user].timeLeft = duration * 60;
+    timers[user].isRunning = true;
+    elements[user].currentAnimal.textContent = animal;
+    elements[user].currentTask.textContent = task;
     
+    // Start the interval
+    timers[user].interval = setInterval(() => {
+        timers[user].timeLeft--;
+        updateTimer(user);
+        
+        if (timers[user].timeLeft <= 0) {
+            clearInterval(timers[user].interval);
+            timers[user].isRunning = false;
+            socket.emit('complete_session', { user });
+        }
+    }, 1000);
+    
+    // Emit to server
     socket.emit('start_session', { user, animal, task });
 }
 
@@ -128,25 +157,9 @@ socket.on('session_started', (data) => {
     const { user, animal, task, duration } = data;
     const otherUser = user === 'luu' ? 'ken' : 'luu';
     
-    timers[user].timeLeft = duration * 60;
-    timers[user].isRunning = true;
-    elements[user].currentAnimal.textContent = animal;
-    elements[user].currentTask.textContent = task;
+    // Only update partner's view
     elements[otherUser].partnerAnimal.textContent = animal;
     elements[otherUser].partnerTask.textContent = task;
-    
-    updateTimer(user);
-    
-    timers[user].interval = setInterval(() => {
-        timers[user].timeLeft--;
-        updateTimer(user);
-        
-        if (timers[user].timeLeft <= 0) {
-            clearInterval(timers[user].interval);
-            timers[user].isRunning = false;
-            socket.emit('complete_session', { user });
-        }
-    }, 1000);
 });
 
 socket.on('session_completed', (data) => {
