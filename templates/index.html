@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomance - Focus Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_luu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_4keni.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Luu's Panel -->
+        <div class="panel luu-panel">
+            <div class="header">
+                <h2>Luu's Focus Zone</h2>
+                <div class="cash">Cash: <span id="luu-cash">100</span></div>
+            </div>
+            <div class="animal-display">
+                <div class="current-animal">
+                    <h3>Current Animal</h3>
+                    <div id="luu-current-animal">None</div>
+                </div>
+                <div class="partner-animal">
+                    <h3>4keni's Animal</h3>
+                    <div id="luu-partner-animal">None</div>
+                </div>
+            </div>
+            <div class="timer">
+                <div id="luu-timer">00:00</div>
+                <div class="controls">
+                    <select id="luu-animal-select">
+                        <option value="chicken">Chicken (15min)</option>
+                        <option value="goat">Goat (25min)</option>
+                        <option value="sheep">Sheep (35min)</option>
+                        <option value="pig">Pig (45min)</option>
+                        <option value="cow">Cow (60min)</option>
+                        <option value="horse">Horse (90min)</option>
+                    </select>
+                    <button id="luu-start">Start</button>
+                    <button id="luu-pause">Pause</button>
+                    <button id="luu-reset">Reset</button>
+                </div>
+            </div>
+            <div class="inventory">
+                <h3>Inventory</h3>
+                <div id="luu-inventory"></div>
+            </div>
+        </div>
+
+        <!-- 4keni's Panel -->
+        <div class="panel ken-panel">
+            <div class="header">
+                <h2>4keni's Focus Zone</h2>
+                <div class="cash">Cash: <span id="ken-cash">100</span></div>
+            </div>
+            <div class="animal-display">
+                <div class="current-animal">
+                    <h3>Current Animal</h3>
+                    <div id="ken-current-animal">None</div>
+                </div>
+                <div class="partner-animal">
+                    <h3>Luu's Animal</h3>
+                    <div id="ken-partner-animal">None</div>
+                </div>
+            </div>
+            <div class="timer">
+                <div id="ken-timer">00:00</div>
+                <div class="controls">
+                    <select id="ken-animal-select">
+                        <option value="chicken">Chicken (15min)</option>
+                        <option value="goat">Goat (25min)</option>
+                        <option value="sheep">Sheep (35min)</option>
+                        <option value="pig">Pig (45min)</option>
+                        <option value="cow">Cow (60min)</option>
+                        <option value="horse">Horse (90min)</option>
+                    </select>
+                    <button id="ken-start">Start</button>
+                    <button id="ken-pause">Pause</button>
+                    <button id="ken-reset">Reset</button>
+                </div>
+            </div>
+            <div class="inventory">
+                <h3>Inventory</h3>
+                <div id="ken-inventory"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html> 

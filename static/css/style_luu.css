@@ -1,0 +1,52 @@
+.luu-panel {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.luu-panel .header {
+    background-color: #2a2a2a;
+    border: 2px solid #00ff00;
+}
+
+.luu-panel .animal-display {
+    background-color: #2a2a2a;
+}
+
+.luu-panel .current-animal,
+.luu-panel .partner-animal {
+    background-color: #333333;
+    border: 1px solid #00ff00;
+}
+
+.luu-panel .timer {
+    background-color: #2a2a2a;
+    border: 2px solid #00ff00;
+}
+
+.luu-panel select {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #00ff00;
+}
+
+.luu-panel button {
+    background-color: #00ff00;
+    color: #000000;
+}
+
+.luu-panel button:hover {
+    background-color: #00cc00;
+}
+
+.luu-panel .inventory {
+    background-color: #2a2a2a;
+    border: 2px solid #00ff00;
+}
+
+#luu-inventory > div {
+    background-color: #333333;
+    border: 1px solid #00ff00;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 5px;
+} 
