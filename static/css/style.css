@@ -184,4 +184,73 @@ button:hover {
     font-size: 0.8rem;
     color: #666;
     margin-top: 0.2rem;
+}
+
+.folder-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.folder-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.folder-item {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.folder-header:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.folder-name {
+    font-weight: bold;
+}
+
+.folder-count {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.folder-content {
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.folder-task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.folder-task:last-child {
+    border-bottom: none;
+}
+
+.folder-task .task-name {
+    font-weight: 500;
+}
+
+.folder-task .task-animal {
+    font-size: 0.9rem;
+    opacity: 0.8;
 } 

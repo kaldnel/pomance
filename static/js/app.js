@@ -113,6 +113,68 @@ function updateFolderSelect(user, folders) {
         option.textContent = folder;
         select.appendChild(option);
     });
+    
+    // Also update the folder display
+    updateFolderDisplay(user, folders);
+}
+
+// Update folder display
+function updateFolderDisplay(user, folders) {
+    const folderDisplay = document.getElementById(`${user}-folder-display`);
+    folderDisplay.innerHTML = '';
+    
+    folders.forEach(folder => {
+        const folderItem = document.createElement('div');
+        folderItem.className = 'folder-item';
+        
+        const folderHeader = document.createElement('div');
+        folderHeader.className = 'folder-header';
+        folderHeader.innerHTML = `
+            <span class="folder-name">${folder}</span>
+            <span class="folder-count">0 tasks</span>
+        `;
+        
+        const folderContent = document.createElement('div');
+        folderContent.className = 'folder-content';
+        
+        // Get tasks for this folder
+        const tasks = getTasksForFolder(user, folder);
+        folderContent.innerHTML = tasks.map(task => `
+            <div class="folder-task">
+                <span class="task-name">${task.task}</span>
+                <span class="task-animal">${task.animal}</span>
+            </div>
+        `).join('');
+        
+        folderHeader.onclick = () => {
+            folderContent.style.display = folderContent.style.display === 'none' ? 'block' : 'none';
+        };
+        
+        folderItem.appendChild(folderHeader);
+        folderItem.appendChild(folderContent);
+        folderDisplay.appendChild(folderItem);
+    });
+}
+
+// Get tasks for a specific folder
+function getTasksForFolder(user, folder) {
+    const inventory = document.getElementById(`${user}-inventory`);
+    const tasks = [];
+    
+    inventory.querySelectorAll('.inventory-item').forEach(item => {
+        const taskName = item.querySelector('.task-name').textContent;
+        const animalType = item.querySelector('.animal-type').textContent;
+        const barkName = item.querySelector('.bark-name').textContent;
+        
+        if (barkName === folder) {
+            tasks.push({
+                task: taskName,
+                animal: animalType
+            });
+        }
+    });
+    
+    return tasks;
 }
 
 // Start timer
@@ -224,6 +286,11 @@ socket.on('session_completed', (data) => {
         <div class="bark-name">${bark}</div>
     `;
     elements[user].inventory.appendChild(inventoryItem);
+    
+    // Update folder display
+    const userData = load_user_data();
+    const userKey = user === 'ken' ? '4keni' : user;
+    updateFolderDisplay(user, userData[userKey]['folders']);
     
     // Reset display
     elements[user].currentAnimal.textContent = 'None';
